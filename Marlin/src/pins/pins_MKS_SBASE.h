@@ -260,10 +260,10 @@
 
 #if HAS_DRIVER(TMC2130)
   // J8
-  #define X_CS_PIN         P1_22
-  #define Y_CS_PIN         P1_23
-  #define Z_CS_PIN         P2_12
-  #define E0_CS_PIN        P2_11
+  // #define X_CS_PIN         P1_22
+  // #define Y_CS_PIN         P1_23
+  // #define Z_CS_PIN         P2_12
+  // #define E0_CS_PIN        P2_11
   #define E1_CS_PIN        P4_28
 
 // Hardware SPI is on EXP2. See if you can make it work:
