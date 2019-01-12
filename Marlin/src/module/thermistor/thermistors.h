@@ -86,6 +86,12 @@
 #if ANY_THERMISTOR_IS(20) // PT100 with INA826 amp on Ultimaker v2.0 electronics
   #include "thermistor_20.h"
 #endif
+#if ANY_THERMISTOR_IS(42) // Heatblock HyperCube Evolution beta 4950
+  #include "thermistor_42.h"
+#endif
+#if ANY_THERMISTOR_IS(43) // Heatblock HyperCube Evolution beta 4500
+  #include "thermistor_43.h"
+#endif
 #if ANY_THERMISTOR_IS(51) // beta25 = 4092 K, R25 = 100 kOhm, Pull-up = 1 kOhm, "EPCOS"
   #include "thermistor_51.h"
 #endif
