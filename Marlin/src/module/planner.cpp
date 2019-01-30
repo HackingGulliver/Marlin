@@ -91,7 +91,6 @@
 #if ENABLED(AUTO_POWER_CONTROL)
   #include "../feature/power.h"
 #endif
-
 // Delay for delivery of first block to the stepper ISR, if the queue contains 2 or
 // fewer movements. The delay is measured in milliseconds, and must be less than 250ms
 #define BLOCK_DELAY_FOR_1ST_MOVE 100
@@ -2326,7 +2325,18 @@ bool Planner::_populate_block(block_t * const block, bool split_move,
   #endif
   #if ENABLED(LIN_ADVANCE)
     if (block->use_advance_lead) {
-      block->advance_speed = (STEPPER_TIMER_RATE) / (extruder_advance_K[active_extruder] * block->e_D_ratio * block->acceleration * settings.axis_steps_per_mm[E_AXIS_N(extruder)]);
+      float adv_factor = (extruder_advance_K[active_extruder] * block->e_D_ratio * block->acceleration * settings.axis_steps_per_mm[E_AXIS_N(extruder)]);
+      if (block->millimeters < 1.0f) {
+        adv_factor *= block->millimeters;
+      }
+      block->advance_speed = (STEPPER_TIMER_RATE) / adv_factor;
+
+      SERIAL_ECHOPAIR("mm: ", block->millimeters);
+      SERIAL_ECHOPAIR(" as: ", block->advance_speed);
+      SERIAL_ECHOPAIR(" ed: ", block->e_D_ratio);
+      SERIAL_ECHOPAIR(" acc: ", block->acceleration);
+      SERIAL_EOL();
+
       #if ENABLED(LA_DEBUG)
         if (extruder_advance_K[active_extruder] * block->e_D_ratio * block->acceleration * 2 < SQRT(block->nominal_speed_sqr) * block->e_D_ratio)
           SERIAL_ECHOLNPGM("More than 2 steps per eISR loop executed.");
