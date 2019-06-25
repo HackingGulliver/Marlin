@@ -406,9 +406,9 @@
 //  #define DEFAULT_Kd 114
 
 // Hypercube Evolution
-#define DEFAULT_Kp 16.268240
-#define DEFAULT_Ki 1.081018
-#define DEFAULT_Kd 61.205185
+#define DEFAULT_Kp 18.40
+#define DEFAULT_Ki 1.31
+#define DEFAULT_Kd 64.82
 
   // MakerGear
   //#define DEFAULT_Kp 7.0
@@ -646,7 +646,7 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4[, E5]]]]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 160, 800, 850 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 160, 800, 807 }
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -661,7 +661,7 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4[, E5]]]]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 3000, 3000, 100, 1500 }
+#define DEFAULT_MAX_ACCELERATION      { 5000, 5000, 100, 1500 }
 
 /**
  * Default Acceleration (change/s) change = mm/s
@@ -673,14 +673,14 @@
  */
 #define DEFAULT_ACCELERATION          3000    // X, Y, Z and E acceleration for printing moves
 #define DEFAULT_RETRACT_ACCELERATION  3000    // E acceleration for retracts
-#define DEFAULT_TRAVEL_ACCELERATION   3000    // X, Y, Z acceleration for travel (non printing) moves
+#define DEFAULT_TRAVEL_ACCELERATION   5000    // X, Y, Z acceleration for travel (non printing) moves
 
 //
 // Use Junction Deviation instead of traditional Jerk Limiting
 //
 #define JUNCTION_DEVIATION
 #if ENABLED(JUNCTION_DEVIATION)
-  #define JUNCTION_DEVIATION_MM 0.02  // (mm) Distance from real junction edge
+  #define JUNCTION_DEVIATION_MM 0.05  // (mm) Distance from real junction edge
 #endif
 
 /**
