@@ -1,6 +1,6 @@
 /**
  * Marlin 3D Printer Firmware
- * Copyright (c) 2019 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
+ * Copyright (c) 2020 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
  *
  * Based on Sprinter and grbl.
  * Copyright (c) 2011 Camiel Gubbels / Erik van der Zalm
@@ -16,13 +16,13 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
 #pragma once
 
 /**
- * printer_event_leds.h - LED color changing based on printer status
+ * feature/leds/printer_event_leds.h - LED color changing based on printer status
  */
 
 #include "leds.h"
@@ -55,8 +55,13 @@ public:
     static void onBedHeating(const float &start, const float &current, const float &target);
   #endif
 
-  #if HAS_TEMP_HOTEND || HAS_HEATED_BED
-    static inline void onHeatingDone() { leds.set_color(LEDColorWhite()); }
+  #if HAS_HEATED_CHAMBER
+    static inline LEDColor onChamberHeatingStart() { old_intensity = 127; return leds.get_color(); }
+    static void onChamberHeating(const float &start, const float &current, const float &target);
+  #endif
+
+  #if HAS_TEMP_HOTEND || HAS_HEATED_BED || HAS_HEATED_CHAMBER
+    static inline void onHeatingDone() { leds.set_white(); }
     static inline void onPidTuningDone(LEDColor c) { leds.set_color(c); }
   #endif
 
